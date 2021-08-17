@@ -9,7 +9,15 @@ public class SQS_Functions {
     static AmazonSQS sqs= AmazonSQSClientBuilder.standard().build();
     static String queueUrl="http://localhost:4566/000000000000/test_queue";
 
-        public static void SendMessage(){
+    public static String getQueueUrl() {
+        return queueUrl;
+    }
+
+    public static void setQueueUrl(String queueUrl) {
+        SQS_Functions.queueUrl = queueUrl;
+    }
+
+    public static void SendMessage(){
         try {
             SendMessageRequest send_msg_req = new SendMessageRequest().withQueueUrl(queueUrl)
                     .withMessageBody("Hello Message from 4566")
@@ -40,6 +48,17 @@ public class SQS_Functions {
         }
     }
 
+    public static int getMessageCount() {
+        try {
+            ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(0).withWaitTimeSeconds(10).withMaxNumberOfMessages(10);
+            List<Message> messages = sqs.receiveMessage(req).getMessages();
+            return messages.size();
+        } catch (Exception exp) {
+            System.out.println("Failed!!");
+            return 0;
+        }
+    }
+
     public static void DeleteMessage() {
         try {
             ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(20).withMaxNumberOfMessages(1);
@@ -61,5 +80,6 @@ public class SQS_Functions {
         // DeleteMessage();
        //PublishTopic();
         //System.out.println(System.getenv("docA"));
+        getMessageCount();
     }
 }
