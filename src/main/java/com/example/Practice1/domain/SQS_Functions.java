@@ -80,6 +80,6 @@ public class SQS_Functions {
         // DeleteMessage();
        //PublishTopic();
         //System.out.println(System.getenv("docA"));
-        getMessageCount();
+        //getMessageCount();
     }
 }
