@@ -76,7 +76,7 @@ public class SQS_Functions {
 
     public static void main(String[] args) {
         //SendMessage();
-        ReadMessage();//
+        //ReadMessage();//
         // DeleteMessage();
        //PublishTopic();
         //System.out.println(System.getenv("docA"));
