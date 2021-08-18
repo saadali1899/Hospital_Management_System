@@ -1,11 +1,12 @@
 package com.example.Practice1.domain;
 
 public class Patient {
-    String name;
+    String patient_name;
     String email;
     String reasons;
-    String p_id;
+    String id;
     String estimated_time;
+    char doctor_code;
     int age;
     int fees;
     int waiting_number;
@@ -14,23 +15,24 @@ public class Patient {
         super();
     }
 
-    public Patient(String name, String email, String reasons, String p_id, String estimated_time, int age, int fees, int waiting_number) {
-        this.name = name;
+    public Patient(String patient_name, String email, String reasons, String id, String estimated_time, char doctor_code, int age, int fees, int waiting_number) {
+        this.patient_name = patient_name;
         this.email = email;
         this.reasons = reasons;
-        this.p_id = p_id;
+        this.id = id;
         this.estimated_time = estimated_time;
+        this.doctor_code = doctor_code;
         this.age = age;
         this.fees = fees;
         this.waiting_number = waiting_number;
     }
 
-    public String getName() {
-        return name;
+    public String getPatient_name() {
+        return patient_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPatient_name(String patient_name) {
+        this.patient_name = patient_name;
     }
 
     public String getEmail() {
@@ -49,12 +51,12 @@ public class Patient {
         this.reasons = reasons;
     }
 
-    public String getP_id() {
-        return p_id;
+    public String getId() {
+        return id;
     }
 
-    public void setP_id(String p_id) {
-        this.p_id = p_id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEstimated_time() {
@@ -63,6 +65,14 @@ public class Patient {
 
     public void setEstimated_time(String estimated_time) {
         this.estimated_time = estimated_time;
+    }
+
+    public char getDoctor_code() {
+        return doctor_code;
+    }
+
+    public void setDoctor_code(char doctor_code) {
+        this.doctor_code = doctor_code;
     }
 
     public int getAge() {
@@ -92,13 +102,14 @@ public class Patient {
     @Override
     public String toString() {
         return "Patient{" +
-                "name='" + name + '\n' +
-                ", email='" + email + '\n' +
-                ", reasons='" + reasons + '\n' +
-                ", p_id='" + p_id + '\n' +
-                ", estimated_time='" + estimated_time + '\n' +
-                ", age=" + age + '\n' +
-                ", fees=" + fees + '\n' +
+                "patient_name='" + patient_name + '\'' +
+                ", email='" + email + '\'' +
+                ", reasons='" + reasons + '\'' +
+                ", id='" + id + '\'' +
+                ", estimated_time='" + estimated_time + '\'' +
+                ", doctor_code=" + doctor_code +
+                ", age=" + age +
+                ", fees=" + fees +
                 ", waiting_number=" + waiting_number +
                 '}';
     }
