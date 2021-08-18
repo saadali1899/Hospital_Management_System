@@ -24,7 +24,7 @@ public class HelloResource {
     @Path("/JSON")
     public Response postJSON(String payload) throws Exception{
         Patient obj = new Gson().fromJson(payload, Patient.class);
-        System.out.println(obj.toString());
+        //System.out.println(obj.toString());
         return Response.ok("Post Done!!").build();
     }
 

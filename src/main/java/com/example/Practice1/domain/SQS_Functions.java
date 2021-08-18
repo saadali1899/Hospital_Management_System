@@ -17,7 +17,7 @@ public class SQS_Functions extends Thread{
         SQS_Functions.queueUrl = queueUrl;
     }
 
-    public static void SendMessage(){
+    public static void SendMessage(String queueUrl){
         try {
             SendMessageRequest send_msg_req = new SendMessageRequest().withQueueUrl(queueUrl)
                     .withMessageBody("Hello Message its a test message again!!")
@@ -32,7 +32,7 @@ public class SQS_Functions extends Thread{
 
     }
 
-    public static void ReadMessage() {
+    public static void ReadMessage(String queueUrl) {
         try {
             ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(0).withWaitTimeSeconds(10).withMaxNumberOfMessages(1);
             ReceiveMessageResult message = sqs.receiveMessage(req);
@@ -44,7 +44,7 @@ public class SQS_Functions extends Thread{
         }
     }
 
-    public static int getMessageCount() {
+    public static int getMessageCount(String queueUrl) {
         try {
             ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(0).withWaitTimeSeconds(10).withMaxNumberOfMessages(10);
             List<Message> messages = sqs.receiveMessage(req).getMessages();
@@ -55,7 +55,7 @@ public class SQS_Functions extends Thread{
         }
     }
 
-    public static void DeleteMessage() {
+    public static void DeleteMessage(String queueUrl) {
         try {
             ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(20).withMaxNumberOfMessages(1);
             List<Message> messages = sqs.receiveMessage(req).getMessages();

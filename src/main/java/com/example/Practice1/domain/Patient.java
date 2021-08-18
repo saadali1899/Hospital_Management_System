@@ -1,5 +1,10 @@
 package com.example.Practice1.domain;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+
 public class Patient {
     String patient_name;
     String email;
@@ -99,6 +104,35 @@ public class Patient {
         this.waiting_number = waiting_number;
     }
 
+    public static void calculateEstimateTime(int number) {
+        Random rn = new Random();
+        int answer = rn.nextInt(10 - 5 + 1) + 5;
+        String start;
+        String end;
+        String time;
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        long timeInSecs = date.getTimeInMillis();
+        Date startingTime = new Date(timeInSecs + (number * 60 * 1000));
+        start = new String(sdf.format(startingTime));
+        //long timeInSecs = date.getTimeInMillis();
+        Date endingTime = new Date(timeInSecs + ((number + answer) * 60 * 1000));
+        end = new String(sdf.format(endingTime));
+        time = start + " to " + end;
+        System.out.println(time);
+    }
+
+    public String Receipt() {
+        return "Patient{" +
+                "patient_name='" + patient_name + '\n' +
+                ", id='" + id + '\n' +
+                ", estimated_time='" + estimated_time + '\n' +
+                ", doctor_code=" + doctor_code + '\n' +
+                ", age=" + age + '\n'+
+                ", waiting_number=" + waiting_number +
+                '}';
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
@@ -112,5 +146,9 @@ public class Patient {
                 ", fees=" + fees +
                 ", waiting_number=" + waiting_number +
                 '}';
+    }
+
+    public static void main(String[] args) {
+        calculateEstimateTime(5);
     }
 }
