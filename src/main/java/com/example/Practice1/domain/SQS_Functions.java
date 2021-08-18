@@ -5,7 +5,7 @@ import com.amazonaws.services.sqs.model.*;
 
 import java.util.List;
 
-public class SQS_Functions {
+public class SQS_Functions extends Thread{
     static AmazonSQS sqs= AmazonSQSClientBuilder.standard().build();
     static String queueUrl="http://localhost:4566/000000000000/test_queue";
 
@@ -20,7 +20,7 @@ public class SQS_Functions {
     public static void SendMessage(){
         try {
             SendMessageRequest send_msg_req = new SendMessageRequest().withQueueUrl(queueUrl)
-                    .withMessageBody("Hello Message from 4566")
+                    .withMessageBody("Hello Message its a test message again!!")
                     .withDelaySeconds(0);
             SendMessageResult send_msg_rslt = sqs.sendMessage(send_msg_req);
             System.out.println("Message Sent Successfully!");
@@ -34,15 +34,11 @@ public class SQS_Functions {
 
     public static void ReadMessage() {
         try {
-            ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(0).withWaitTimeSeconds(10).withMaxNumberOfMessages(10);
-            List<Message> messages = sqs.receiveMessage(req).getMessages();
-            int i = 0;
-            for (Message m : messages) {
-                System.out.println(m.toString());
-                i++;
-            }
-            System.out.println("Count: " + i);
-            System.out.println("Queue Scanned Successfully!");
+            ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(0).withWaitTimeSeconds(10).withMaxNumberOfMessages(1);
+            ReceiveMessageResult message = sqs.receiveMessage(req);
+            System.out.println(message);
+            System.out.println("Message Received!!");
+
         } catch (Exception exp) {
             System.out.println("Failed!!");
         }
@@ -74,12 +70,6 @@ public class SQS_Functions {
         }
     }
 
-    public static void main(String[] args) {
-        //SendMessage();
-        //ReadMessage();//
-        // DeleteMessage();
-       //PublishTopic();
-        //System.out.println(System.getenv("docA"));
-        //getMessageCount();
-    }
+
+
 }
