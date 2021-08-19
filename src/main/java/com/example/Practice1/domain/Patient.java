@@ -96,7 +96,7 @@ public class Patient {
         this.fees = fees;
     }
 
-    public int getWaiting_number() {
+    public int getWaiting_number()  {
         return waiting_number;
     }
 

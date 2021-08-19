@@ -1,5 +1,4 @@
 package com.example.Practice1.domain;
-import com.amazonaws.services.dynamodbv2.xspec.NULL;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.*;
@@ -9,20 +8,10 @@ import java.util.List;
 
 public class SQS_Functions extends Thread{
     static AmazonSQS sqs= AmazonSQSClientBuilder.standard().build();
-  /*  static String queueUrl="http://localhost:4566/000000000000/test_queue";
-
-    public static String getQueueUrl() {
-        return queueUrl;
-    }
-
-    public static void setQueueUrl(String queueUrl) {
-        SQS_Functions.queueUrl = queueUrl;
-    }
-*/
-    public static String SendMessage(String queueUrl){
+    public static String SendMessage(String queueUrl, String name, String email, int waiting_number){
         try {
             SendMessageRequest send_msg_req = new SendMessageRequest().withQueueUrl(queueUrl)
-                    .withMessageBody("Hello Message its a test message!!")
+                    .withMessageBody(name + " " + email + " " + waiting_number)
                     .withDelaySeconds(0);
             SendMessageResult send_msg_rslt = sqs.sendMessage(send_msg_req);
             System.out.println("Message Sent Successfully!");
@@ -76,5 +65,8 @@ public class SQS_Functions extends Thread{
             System.out.println("Failed!!");
         }
     }
+
+    public static void main(String[] args) {
+     }
 
 }
