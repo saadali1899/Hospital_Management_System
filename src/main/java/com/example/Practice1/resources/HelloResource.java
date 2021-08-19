@@ -34,6 +34,7 @@ public class HelloResource {
         } else {
             obj.setWaiting_number(0);
         }
+        obj.setEstimated_time(Patient.calculateEstimateTime(obj.getWaiting_number()));
         //System.out.println(obj.toString());
         return Response.ok("Post Done!!" + obj.toString()).build();
     }

@@ -110,7 +110,7 @@ public class Patient {
         String start;
         String end;
         String time;
-        int estimate=number*10;
+        int estimate=(number-1)*10;
         Calendar date = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         long timeInSecs = date.getTimeInMillis();
