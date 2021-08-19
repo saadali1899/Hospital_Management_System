@@ -104,22 +104,24 @@ public class Patient {
         this.waiting_number = waiting_number;
     }
 
-    public static void calculateEstimateTime(int number) {
+    public static String calculateEstimateTime(int number) {
         Random rn = new Random();
         int answer = rn.nextInt(10 - 5 + 1) + 5;
         String start;
         String end;
         String time;
+        int estimate=number*10;
         Calendar date = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         long timeInSecs = date.getTimeInMillis();
-        Date startingTime = new Date(timeInSecs + (number * 60 * 1000));
+        Date startingTime = new Date(timeInSecs + (estimate * 60 * 1000));
         start = new String(sdf.format(startingTime));
         //long timeInSecs = date.getTimeInMillis();
-        Date endingTime = new Date(timeInSecs + ((number + answer) * 60 * 1000));
+        Date endingTime = new Date(timeInSecs + ((estimate + answer) * 60 * 1000));
         end = new String(sdf.format(endingTime));
         time = start + " to " + end;
         System.out.println(time);
+        return time;
     }
 
     public String Receipt() {
@@ -149,6 +151,6 @@ public class Patient {
     }
 
     public static void main(String[] args) {
-        calculateEstimateTime(5);
+        calculateEstimateTime(2);
     }
 }

@@ -21,11 +21,11 @@ public class HelloResource {
     //-------------------Post Request-----------------------
 
     @POST
-    @Path("/JSON")
+    @Path("/entry")
     public Response postJSON(String payload) throws Exception{
         Patient obj = new Gson().fromJson(payload, Patient.class);
         //System.out.println(obj.toString());
-        return Response.ok("Post Done!!").build();
+        return Response.ok("Post Done!!" + obj.toString()).build();
     }
 
 
