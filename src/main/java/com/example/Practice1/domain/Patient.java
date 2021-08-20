@@ -105,19 +105,18 @@ public class Patient {
     }
 
     public static String calculateEstimateTime(int number) {
-        Random rn = new Random();
-        int answer = rn.nextInt(10 - 5 + 1) + 5;
         String start;
         String end;
         String time;
-        int estimate=(number-1)*10;
+        int max=(number)*10;
+        int min=(number)*5;
         Calendar date = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         long timeInSecs = date.getTimeInMillis();
-        Date startingTime = new Date(timeInSecs + (estimate * 60 * 1000));
+        Date startingTime = new Date(timeInSecs + (min * 60 * 1000));
         start = new String(sdf.format(startingTime));
         //long timeInSecs = date.getTimeInMillis();
-        Date endingTime = new Date(timeInSecs + ((estimate + answer) * 60 * 1000));
+        Date endingTime = new Date(timeInSecs + (max * 60 * 1000));
         end = new String(sdf.format(endingTime));
         time = start + " to " + end;
         System.out.println(time);
@@ -151,6 +150,6 @@ public class Patient {
     }
 
     public static void main(String[] args) {
-        calculateEstimateTime(2);
+        calculateEstimateTime(5);
     }
 }

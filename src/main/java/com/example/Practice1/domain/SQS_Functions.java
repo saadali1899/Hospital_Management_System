@@ -6,9 +6,10 @@ import com.amazonaws.services.sqs.model.*;
 import javax.validation.constraints.Null;
 import java.util.List;
 
-public class SQS_Functions extends Thread{
-    static AmazonSQS sqs= AmazonSQSClientBuilder.standard().build();
-    public static String SendMessage(String queueUrl, String name, String email, int waiting_number){
+public class SQS_Functions extends Thread {
+    static AmazonSQS sqs = AmazonSQSClientBuilder.standard().build();
+
+    public static String SendMessage(String queueUrl, String name, String email, int waiting_number) {
         try {
             SendMessageRequest send_msg_req = new SendMessageRequest().withQueueUrl(queueUrl)
                     .withMessageBody(name + " " + email + " " + waiting_number)
@@ -18,8 +19,7 @@ public class SQS_Functions extends Thread{
             String id = send_msg_rslt.getMessageId();
             System.out.println(id);
             return id;
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Failed!!");
         }
 
@@ -66,7 +66,5 @@ public class SQS_Functions extends Thread{
         }
     }
 
-    public static void main(String[] args) {
-     }
 
 }

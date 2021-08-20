@@ -35,6 +35,15 @@ public class HelloResource {
             obj.setWaiting_number(0);
         }
         obj.setEstimated_time(Patient.calculateEstimateTime(obj.getWaiting_number()));
+        if (obj.getDoctor_code() == 'A') {
+            obj.setId(SQS_Functions.SendMessage(System.getenv("docA"),obj.getPatient_name(),obj.getEmail(),obj.getWaiting_number()));
+        } else if (obj.getDoctor_code() == 'B') {
+            obj.setId(SQS_Functions.SendMessage(System.getenv("docB"),obj.getPatient_name(),obj.getEmail(),obj.getWaiting_number()));
+        } else if (obj.getDoctor_code() == 'C') {
+            obj.setId(SQS_Functions.SendMessage(System.getenv("docC"),obj.getPatient_name(),obj.getEmail(),obj.getWaiting_number()));
+        } else {
+            obj.setId("");
+        }
         //System.out.println(obj.toString());
         return Response.ok("Post Done!!" + obj.toString()).build();
     }
