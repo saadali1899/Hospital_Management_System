@@ -3,11 +3,18 @@ import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.*;
 
-import javax.validation.constraints.Null;
 import java.util.List;
 
 public class SQS_Functions extends Thread {
+    String name;
     static AmazonSQS sqs = AmazonSQSClientBuilder.standard().build();
+    public SQS_Functions(){
+        super();
+    }
+
+    public SQS_Functions(String name) {
+        this.name = name;
+    }
 
     public static String SendMessage(String queueUrl, String name, String email, int waiting_number) {
         try {
@@ -66,5 +73,27 @@ public class SQS_Functions extends Thread {
         }
     }
 
+    @Override
+    public void run() {
+
+        for (int i = 0; i < 10; i++) {
+            try {
+
+                System.out.println("Hello" + name);
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        //System.out.println(getMessageCount(System.getenv("docA")));
+       SQS_Functions obj = new SQS_Functions("abc");
+       SQS_Functions obj1 = new SQS_Functions("xyz");
+       obj.start();
+       obj1.start();
+    }
 
 }

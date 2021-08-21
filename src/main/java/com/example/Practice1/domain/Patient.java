@@ -8,7 +8,7 @@ import java.util.Random;
 public class Patient {
     String patient_name;
     String email;
-    String reasons;
+    String reason;
     String id;
     String estimated_time;
     char doctor_code;
@@ -16,14 +16,14 @@ public class Patient {
     int fees;
     int waiting_number;
 
-    public Patient(){
+    public Patient() {
         super();
     }
 
-    public Patient(String patient_name, String email, String reasons, String id, String estimated_time, char doctor_code, int age, int fees, int waiting_number) {
+    public Patient(String patient_name, String email, String reason, String id, String estimated_time, char doctor_code, int age, int fees, int waiting_number) {
         this.patient_name = patient_name;
         this.email = email;
-        this.reasons = reasons;
+        this.reason = reason;
         this.id = id;
         this.estimated_time = estimated_time;
         this.doctor_code = doctor_code;
@@ -48,12 +48,12 @@ public class Patient {
         this.email = email;
     }
 
-    public String getReasons() {
-        return reasons;
+    public String getReason() {
+        return reason;
     }
 
-    public void setReasons(String reasons) {
-        this.reasons = reasons;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public String getId() {
@@ -96,7 +96,7 @@ public class Patient {
         this.fees = fees;
     }
 
-    public int getWaiting_number()  {
+    public int getWaiting_number() {
         return waiting_number;
     }
 
@@ -108,8 +108,8 @@ public class Patient {
         String start;
         String end;
         String time;
-        int max=(number)*10;
-        int min=(number)*5;
+        int max = (number) * 10;
+        int min = (number) * 5;
         Calendar date = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         long timeInSecs = date.getTimeInMillis();
@@ -129,7 +129,7 @@ public class Patient {
                 ", id='" + id + '\n' +
                 ", estimated_time='" + estimated_time + '\n' +
                 ", doctor_code=" + doctor_code + '\n' +
-                ", age=" + age + '\n'+
+                ", age=" + age + '\n' +
                 ", waiting_number=" + waiting_number +
                 '}';
     }
@@ -137,19 +137,16 @@ public class Patient {
     @Override
     public String toString() {
         return "Patient{" +
-                "patient_name='" + patient_name + '\'' +
-                ", email='" + email + '\'' +
-                ", reasons='" + reasons + '\'' +
-                ", id='" + id + '\'' +
-                ", estimated_time='" + estimated_time + '\'' +
-                ", doctor_code=" + doctor_code +
-                ", age=" + age +
-                ", fees=" + fees +
-                ", waiting_number=" + waiting_number +
+                "patient_name='" + patient_name + '\n' +
+                ", email='" + email + '\n' +
+                ", reason='" + reason + '\n' +
+                ", id='" + id + '\n' +
+                ", estimated_time='" + estimated_time + '\n' +
+                ", doctor_code=" + doctor_code + '\n' +
+                ", age=" + age + '\n' +
+                ", fees=" + fees + '\n' +
+                ", waiting_number=" + waiting_number + '\n' +
                 '}';
     }
 
-    public static void main(String[] args) {
-        calculateEstimateTime(5);
-    }
 }
