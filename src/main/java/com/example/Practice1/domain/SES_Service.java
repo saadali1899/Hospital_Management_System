@@ -13,7 +13,7 @@ import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 public class SES_Service {
     static final String FROM = "saadaliyounas@gmail.com";
     static final String SUBJECT = "Amazon SES test (AWS SDK for Java)";
-    public static void sendEmail(String email,String name,int waiting_number){
+    public static void sendEmail(String email,String name,String waiting_number){
         try {
              final String TEXTBODY = "Hello " + name + " your checkup time has just arrived and your waiting number is " + waiting_number;
                     AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder
@@ -42,7 +42,7 @@ public class SES_Service {
 
 
     public static void main(String[] args) throws IOException {
-        sendEmail("saad@gmail.com","Saad", 5);
+        //sendEmail("saad@gmail.com","Saad", "5");
 
     }
 }

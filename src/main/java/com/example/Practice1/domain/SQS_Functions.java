@@ -2,18 +2,23 @@ package com.example.Practice1.domain;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.*;
+import com.google.gson.Gson;
 
+import javax.validation.constraints.Null;
 import java.util.List;
+import java.util.Random;
 
 public class SQS_Functions extends Thread {
     String name;
+    String queueUrl;
     static AmazonSQS sqs = AmazonSQSClientBuilder.standard().build();
     public SQS_Functions(){
         super();
     }
 
-    public SQS_Functions(String name) {
+    public SQS_Functions(String name,String queueUrl) {
         this.name = name;
+        this.queueUrl=queueUrl;
     }
 
     public static String SendMessage(String queueUrl, String name, String email, int waiting_number) {
@@ -33,13 +38,16 @@ public class SQS_Functions extends Thread {
         return null;
     }
 
-    public static String ReadMessage(String queueUrl) {
+    public String ReadMessage() {
         try {
             ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(0).withWaitTimeSeconds(10).withMaxNumberOfMessages(1);
-            ReceiveMessageResult message = sqs.receiveMessage(req);
-            System.out.println(message);
-            System.out.println("Message Received!!");
-            return message.toString();
+            //ReceiveMessageResult message = sqs.receiveMessage(req);
+            List<Message> messages = sqs.receiveMessage(req).getMessages();
+            for (Message m : messages) {
+                System.out.println("Message Received!!");
+                System.out.println(m.getBody());
+                return m.getBody();
+            }
         } catch (Exception exp) {
             System.out.println("Failed!!");
         }
@@ -58,7 +66,7 @@ public class SQS_Functions extends Thread {
         }
     }
 
-    public static void DeleteMessage(String queueUrl) {
+    public void DeleteMessage() {
         try {
             ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(20).withMaxNumberOfMessages(1);
             List<Message> messages = sqs.receiveMessage(req).getMessages();
@@ -76,24 +84,47 @@ public class SQS_Functions extends Thread {
     @Override
     public void run() {
 
-        for (int i = 0; i < 10; i++) {
+        while(true) {
             try {
-
-                System.out.println("Hello" + name);
-                Thread.sleep(2000);
+                if(ReadMessage() != null) {
+                    Random rn = new Random();
+                    int answer = rn.nextInt(10 - 5 + 1) + 5;
+                    String message = ReadMessage();
+                    System.out.println(message);
+                    String[] features = message.split(" ");
+                    String name = features[0];
+                    String email = features[1];
+                    String number = features[2];
+                    SES_Service.sendEmail(email, name, number);
+                    System.out.println("Patient Checkup Time Has Been Started..");
+                    System.out.println("Process: " + name);
+                    Thread.sleep(answer*60*1000);
+                    System.out.println("Times up, waiting for next patient on the list...");
+                    DeleteMessage();
+                }
+                else{
+                    break;
+                }
+                System.out.println("No more appointments on the list..." + name);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("Failed!!");
             }
         }
     }
 
 
     public static void main(String[] args) {
+       SQS_Functions obj = new SQS_Functions("docA",System.getenv("docA"));
+       SQS_Functions obj1 = new SQS_Functions("docB",System.getenv("docB"));
+       SQS_Functions obj2 = new SQS_Functions("docC",System.getenv("docC"));
+         obj.start();
+         obj1.start();
+         obj2.start();
         //System.out.println(getMessageCount(System.getenv("docA")));
-       SQS_Functions obj = new SQS_Functions("abc");
-       SQS_Functions obj1 = new SQS_Functions("xyz");
-       obj.start();
-       obj1.start();
+        //System.out.println(getMessageCount(System.getenv("docB")));
+        //System.out.println(getMessageCount(System.getenv("docC")));
+
+
     }
 
 }
