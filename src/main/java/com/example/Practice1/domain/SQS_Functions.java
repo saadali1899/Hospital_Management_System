@@ -45,7 +45,7 @@ public class SQS_Functions extends Thread {
             List<Message> messages = sqs.receiveMessage(req).getMessages();
             for (Message m : messages) {
                 System.out.println("Message Received!!");
-                System.out.println(m.getBody());
+                //System.out.println(m.getBody());
                 return m.getBody();
             }
         } catch (Exception exp) {
@@ -73,7 +73,7 @@ public class SQS_Functions extends Thread {
             for (Message m : messages) {
                 System.out.println("Deleting Message!");
                 DeleteMessageResult res = sqs.deleteMessage(queueUrl, m.getReceiptHandle());
-                System.out.println(res.getSdkHttpMetadata());
+                //System.out.println(res.getSdkHttpMetadata());
                 System.out.println("Message Deleted Successfully!");
             }
         } catch (Exception exp) {
@@ -84,9 +84,9 @@ public class SQS_Functions extends Thread {
     @Override
     public void run() {
 
-        while(true) {
+        while (true) {
             try {
-                if(ReadMessage() != null) {
+                if (ReadMessage() != null) {
                     Random rn = new Random();
                     int answer = rn.nextInt(10 - 5 + 1) + 5;
                     String message = ReadMessage();
@@ -98,15 +98,13 @@ public class SQS_Functions extends Thread {
                     SES_Service.sendEmail(email, name, number);
                     System.out.println("Patient Checkup Time Has Been Started..");
                     System.out.println("Process: " + name);
-                    Thread.sleep(answer*60*1000);
-                    System.out.println("Times up, waiting for next patient on the list...");
+                    Thread.sleep(answer * 60 * 1000);
+                    System.out.println(name + " checkup has been completed.. Total Time: " + answer + " mins :)");
                     DeleteMessage();
-                }
-                else{
-                    System.out.println("Checking for new appointments...");
+                } else {
+                    System.out.println(name + " Checking for new appointments...");
                     Thread.sleep(5000);
                 }
-                System.out.println("No more appointments on the list..." + name);
             } catch (InterruptedException e) {
                 System.out.println("Failed!!");
             }
