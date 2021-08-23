@@ -1,9 +1,9 @@
 package com.example.Practice1.domain;
 
-public class SQS_Message {
+public class Messages {
     String Body;
 
-    public SQS_Message(){
+    public Messages(){
         super();
     }
 

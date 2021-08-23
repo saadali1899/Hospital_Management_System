@@ -45,7 +45,7 @@ public class HelloResource {
             obj.setId("");
         }
         //System.out.println(obj.toString());
-        return Response.ok("Post Done!!" + obj.toString()).build();
+        return Response.ok(obj.Receipt()).build();
     }
 
 

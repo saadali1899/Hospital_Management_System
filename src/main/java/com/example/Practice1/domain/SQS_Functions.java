@@ -103,7 +103,8 @@ public class SQS_Functions extends Thread {
                     DeleteMessage();
                 }
                 else{
-                    break;
+                    System.out.println("Checking for new appointments...");
+                    Thread.sleep(5000);
                 }
                 System.out.println("No more appointments on the list..." + name);
             } catch (InterruptedException e) {
