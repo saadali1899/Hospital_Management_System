@@ -16,9 +16,6 @@ public class Patient {
     int fees;
     int waiting_number;
 
-    public Patient() {
-        super();
-    }
 
     public Patient(String patient_name, String email, String reason, String id, String estimated_time, char doctor_code, int age, int fees, int waiting_number) {
         this.patient_name = patient_name;
@@ -36,24 +33,15 @@ public class Patient {
         return patient_name;
     }
 
-    public void setPatient_name(String patient_name) {
-        this.patient_name = patient_name;
-    }
+
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getReason() {
         return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
     }
 
     public String getId() {
@@ -76,25 +64,16 @@ public class Patient {
         return doctor_code;
     }
 
-    public void setDoctor_code(char doctor_code) {
-        this.doctor_code = doctor_code;
-    }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public int getFees() {
         return fees;
     }
 
-    public void setFees(int fees) {
-        this.fees = fees;
-    }
 
     public int getWaiting_number() {
         return waiting_number;
