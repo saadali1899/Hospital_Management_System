@@ -2,26 +2,24 @@ package com.example.Practice1.domain;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.*;
-import com.google.gson.Gson;
 
-import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Random;
 
-public class SQS_Functions extends Thread {
+public class SqsFunctions extends Thread {
     String name;
     String queueUrl;
     static AmazonSQS sqs = AmazonSQSClientBuilder.standard().build();
-    public SQS_Functions(){
+    public SqsFunctions(){
         super();
     }
 
-    public SQS_Functions(String name,String queueUrl) {
+    public SqsFunctions(String name, String queueUrl) {
         this.name = name;
         this.queueUrl=queueUrl;
     }
 
-    public static String SendMessage(String queueUrl, String name, String email, int waiting_number) {
+    public static String sendMessage(String queueUrl, String name, String email, int waiting_number) {
         try {
             SendMessageRequest send_msg_req = new SendMessageRequest().withQueueUrl(queueUrl)
                     .withMessageBody(name + " " + email + " " + waiting_number)
@@ -38,7 +36,7 @@ public class SQS_Functions extends Thread {
         return null;
     }
 
-    public String ReadMessage() {
+    public String readMessage() {
         try {
             ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(0).withWaitTimeSeconds(10).withMaxNumberOfMessages(1);
             //ReceiveMessageResult message = sqs.receiveMessage(req);
@@ -66,15 +64,15 @@ public class SQS_Functions extends Thread {
         }
     }
 
-    public void DeleteMessage() {
+    public void deleteMessage() {
         try {
             ReceiveMessageRequest req = new ReceiveMessageRequest().withQueueUrl(queueUrl).withVisibilityTimeout(20).withMaxNumberOfMessages(1);
             List<Message> messages = sqs.receiveMessage(req).getMessages();
             for (Message m : messages) {
-                System.out.println("Deleting Message!");
+                System.out.println("Removing patient from the appointment list!");
                 DeleteMessageResult res = sqs.deleteMessage(queueUrl, m.getReceiptHandle());
                 //System.out.println(res.getSdkHttpMetadata());
-                System.out.println("Message Deleted Successfully!");
+                System.out.println("Patient removed Successfully!");
             }
         } catch (Exception exp) {
             System.out.println("Failed!!");
@@ -86,24 +84,24 @@ public class SQS_Functions extends Thread {
 
         while (true) {
             try {
-                if (ReadMessage() != null) {
+                if (readMessage() != null) {
                     Random rn = new Random();
                     int answer = rn.nextInt(10 - 5 + 1) + 5;
-                    String message = ReadMessage();
+                    String message = readMessage();
                     System.out.println(message);
                     String[] features = message.split(" ");
                     String name = features[0];
                     String email = features[1];
                     String number = features[2];
-                    SES_Service.sendEmail(email, name, number);
+                    SesService.sendEmail(email, name, number);
                     System.out.println("Patient Checkup Time Has Been Started..");
                     System.out.println("Process: " + name);
                     Thread.sleep(answer * 60 * 1000);
                     System.out.println(name + " checkup has been completed.. Total Time: " + answer + " mins :)");
-                    DeleteMessage();
+                    deleteMessage();
                 } else {
                     System.out.println(name + " Checking for new appointments...");
-                    Thread.sleep(5000);
+                    Thread.sleep(1000);
                 }
             } catch (InterruptedException e) {
                 System.out.println("Failed!!");
@@ -113,12 +111,13 @@ public class SQS_Functions extends Thread {
 
 
     public static void main(String[] args) {
-       SQS_Functions obj = new SQS_Functions("docA",System.getenv("docA"));
-       SQS_Functions obj1 = new SQS_Functions("docB",System.getenv("docB"));
-       SQS_Functions obj2 = new SQS_Functions("docC",System.getenv("docC"));
+       SqsFunctions obj = new SqsFunctions("docA",System.getenv("docA"));
+       SqsFunctions obj1 = new SqsFunctions("docB",System.getenv("docB"));
+       SqsFunctions obj2 = new SqsFunctions("docC",System.getenv("docC"));
          obj.start();
          obj1.start();
          obj2.start();
+
         //System.out.println(getMessageCount(System.getenv("docA")));
         //System.out.println(getMessageCount(System.getenv("docB")));
         //System.out.println(getMessageCount(System.getenv("docC")));

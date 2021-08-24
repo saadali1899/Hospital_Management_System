@@ -10,7 +10,7 @@ import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 
-public class SES_Service {
+public class SesService {
     static final String FROM = "saadaliyounas@gmail.com";
     static final String SUBJECT = "Amazon SES test (AWS SDK for Java)";
     public static void sendEmail(String email,String name,String waiting_number){
