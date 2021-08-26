@@ -114,7 +114,7 @@ public class SqsFunctions extends Thread {
        SqsFunctions obj = new SqsFunctions("docA",System.getenv("docA"));
        SqsFunctions obj1 = new SqsFunctions("docB",System.getenv("docB"));
        SqsFunctions obj2 = new SqsFunctions("docC",System.getenv("docC"));
-    System.out.println("---Queues Status---");
+        System.out.println("---Queues Status---");
         System.out.println("DocA: " + getMessageCount(System.getenv("docA")));
         System.out.println("DocB: " + getMessageCount(System.getenv("docB")));
         System.out.println("DocB: " + getMessageCount(System.getenv("docC")));

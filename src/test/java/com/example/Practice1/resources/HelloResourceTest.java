@@ -39,6 +39,7 @@ class HelloResourceTest {
                     "\"fees\":1500.00\n" +
                     "}");
             assertEquals(200,resp.getStatus());
+            resp.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
