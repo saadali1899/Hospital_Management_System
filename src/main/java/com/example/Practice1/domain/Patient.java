@@ -87,19 +87,33 @@ public class Patient {
         String start;
         String end;
         String time;
-        int max = (number) * 10;
-        int min = (number) * 5;
-        Calendar date = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        long timeInSecs = date.getTimeInMillis();
-        Date startingTime = new Date(timeInSecs + (min * 60 * 1000));
-        start = new String(sdf.format(startingTime));
-        //long timeInSecs = date.getTimeInMillis();
-        Date endingTime = new Date(timeInSecs + (max * 60 * 1000));
-        end = new String(sdf.format(endingTime));
-        time = start + " to " + end;
-        System.out.println(time);
-        return time;
+        if (number == 1) {
+            Calendar date = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            long timeInSecs = date.getTimeInMillis();
+            Date startingTime = new Date(timeInSecs);
+            start = new String(sdf.format(startingTime));
+            Date endingTime = new Date(timeInSecs + (10 * 60 * 1000));
+            end = new String(sdf.format(endingTime));
+            time = start + " to " + end;
+
+            return time;
+
+        } else {
+            int max = (number) * 10;
+            int min = (number) * 5;
+            Calendar date = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            long timeInSecs = date.getTimeInMillis();
+            Date startingTime = new Date(timeInSecs + (min * 60 * 1000));
+            start = new String(sdf.format(startingTime));
+            //long timeInSecs = date.getTimeInMillis();
+            Date endingTime = new Date(timeInSecs + (max * 60 * 1000));
+            end = new String(sdf.format(endingTime));
+            time = start + " to " + end;
+            System.out.println(time);
+            return time;
+        }
     }
 
     public String Receipt() {
