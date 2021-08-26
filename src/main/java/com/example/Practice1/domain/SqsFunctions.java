@@ -86,7 +86,7 @@ public class SqsFunctions extends Thread {
                 String message = readMessage();
                 System.out.println(message);
                 SqsMessage obj = new Gson().fromJson(message, SqsMessage.class);
-                SesService.sendEmail(obj.getEmail(), obj.name, obj.getWaitingNumber());
+                SesService.sendEmail(obj.getEmail(), obj.getName(), obj.getWaitingNumber());
                 System.out.println("Patient Checkup Time Has Been Started..");
                 System.out.println("Process: " + obj.getName());
                 Thread.sleep(answer*60*1000);
@@ -117,9 +117,9 @@ public class SqsFunctions extends Thread {
         System.out.println("DocA: " + getMessageCount(System.getenv("docA")));
         System.out.println("DocB: " + getMessageCount(System.getenv("docB")));
         System.out.println("DocB: " + getMessageCount(System.getenv("docC")));
-         //obj.start();
-         //obj1.start();
-         //obj2.start();
+         obj.start();
+         obj1.start();
+         obj2.start();
 
 
     }
