@@ -88,7 +88,7 @@ public class SqsFunctions extends Thread {
                 SqsMessage obj = new Gson().fromJson(message, SqsMessage.class);
                 SesService.sendEmail(obj.getEmail(), obj.name, obj.getWaitingNumber());
                 System.out.println("Patient Checkup Time Has Been Started..");
-                System.out.println("Process: " + name);
+                System.out.println("Process: " + obj.getName());
                 Thread.sleep(answer*60*1000);
                 System.out.println(obj.getName() + " checkup has been completed.. Total Time: " + answer + " mins :)");
                 deleteMessage();
