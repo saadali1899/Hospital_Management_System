@@ -2,6 +2,7 @@ package com.example.Practice1.domain;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.*;
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.Random;
@@ -18,8 +19,9 @@ public class SqsFunctions extends Thread {
 
     public static String sendMessage(String queueUrl, String name, String email, int waiting_number) {
         try {
+            SqsMessage obj = new SqsMessage(name,email,waiting_number);
             SendMessageRequest send_msg_req = new SendMessageRequest().withQueueUrl(queueUrl)
-                    .withMessageBody(name + " " + email + " " + waiting_number)
+                    .withMessageBody(obj.messageBody())
                     .withDelaySeconds(0);
             SendMessageResult send_msg_rslt = sqs.sendMessage(send_msg_req);
             System.out.println("Message Sent Successfully!");
@@ -83,11 +85,8 @@ public class SqsFunctions extends Thread {
                 int answer = rn.nextInt(10 - 5 + 1) + 5;
                 String message = readMessage();
                 System.out.println(message);
-                String[] features = message.split(" ");
-                String name = features[0];
-                String email = features[1];
-                String number = features[2];
-                SesService.sendEmail(email, name, number);
+                SqsMessage obj = new Gson().fromJson(message, SqsMessage.class);
+                SesService.sendEmail(obj.getEmail(), obj.name, obj.getWaitingNumber());
                 System.out.println("Patient Checkup Time Has Been Started..");
                 System.out.println("Process: " + name);
                 Thread.sleep(answer*60*1000);

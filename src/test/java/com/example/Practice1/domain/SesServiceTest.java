@@ -10,6 +10,6 @@ class SesServiceTest {
 
     @Test
     void sendEmail() {
-        SesService.sendEmail("abc@abc.com","saad","5");
+        SesService.sendEmail("abc@abc.com","saad",1);
     }
 }

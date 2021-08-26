@@ -14,7 +14,7 @@ public class SesService {
     static final String FROM = "saadaliyounas@gmail.com";
     static final String SUBJECT = "Amazon SES test (AWS SDK for Java)";
 
-    public static void sendEmail(String email, String name, String waiting_number) {
+    public static void sendEmail(String email, String name, int waiting_number) {
         try {
             final String TEXTBODY = "Hello " + name + " your checkup time has just arrived and your waiting number is " + waiting_number;
             AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder
