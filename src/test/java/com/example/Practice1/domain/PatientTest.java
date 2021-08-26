@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PatientTest {
-    Patient obj = new Patient("saad", "test@test.com", "Pain", "bcsf18m543", "1:00 to 1:10", 'A', 23, 1200, 1);
+    Patient obj = new Patient("saad", "test@test.com", "Pain", "bcsf18m543", "22:43 to 22:48", 'A', 23, 1200, 1);
 
     @Test
     void getPatient_name() {
@@ -29,7 +29,7 @@ class PatientTest {
 
     @Test
     void getEstimated_time() {
-        assertEquals("1:00 to 1:10", obj.getEstimated_time());
+        assertEquals("22:43 to 22:48", obj.getEstimated_time());
     }
 
     @Test
@@ -55,12 +55,12 @@ class PatientTest {
     @Test
     void calculateEstimateTime() {
         String abc = Patient.calculateEstimateTime(1);
-        assertEquals("23:38 to 23:43", abc);
+        assertEquals("22:43 to 22:48", abc);
     }
 
     @Test
     void receipt() {
-        String str = "Patient{" +
+        String str = "{" +
                 "patient_name='" + obj.getPatient_name() + '\n' +
                 ", id='" + obj.getId() + '\n' +
                 ", estimated_time='" + obj.getEstimated_time() + '\n' +
@@ -103,6 +103,22 @@ class PatientTest {
     void setWaiting_number() {
         obj.setWaiting_number(5);
         assertEquals(5, obj.getWaiting_number());
+    }
+
+    @Test
+    void checkCode() {
+        obj.checkCode('A');
+    }
+
+    @Test
+    void validate() {
+        assertEquals(true,obj.validate());
+    }
+
+    @Test
+    void setServices() {
+        Patient abc = new Patient("ali","abc@abc.com","pain","543","1:00 to 1:10",'B',23,1200,5);
+         obj.setServices(abc);
     }
 }
 

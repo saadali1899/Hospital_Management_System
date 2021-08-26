@@ -39,4 +39,8 @@ class SqsFunctionsTest {
         obj.execution();
     }
 
+    @Test
+    void main() {
+        SqsFunctions.main(new String[] {"arg1", "arg2", "arg3"});
+    }
 }

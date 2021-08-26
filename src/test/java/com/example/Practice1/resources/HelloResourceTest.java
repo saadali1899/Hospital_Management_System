@@ -33,7 +33,7 @@ class HelloResourceTest {
             resp = new HelloResource().postJSON("{\n" +
                     "\"patient_name\": \"Test1\",\n" +
                     "\"doctor_code\": \"A\",\n" +
-                    "\"age\": 28,\n" +
+                    "\"age\": 23,\n" +
                     "\"email\": “saadaliyounas@gmail.com”,\n" +
                     "\"reason\":\"diseases description\",\n" +
                     "\"fees\":1500.00\n" +
@@ -45,4 +45,23 @@ class HelloResourceTest {
         }
 
     }
+@Test
+void testJson(){
+    Response resp = null;
+    try {
+        resp = new HelloResource().postJSON("{\n" +
+                "\"patient_name\": \"Test1\",\n" +
+                "\"doctor_code\": \"A\",\n" +
+                "\"age\": 0,\n" +
+                "\"email\": “saadaliyounas@gmail.com”,\n" +
+                "\"reason\":\"diseases description\",\n" +
+                "\"fees\":1500.00\n" +
+                "}");
+        assertEquals(200,resp.getStatus());
+        resp.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+}
 }

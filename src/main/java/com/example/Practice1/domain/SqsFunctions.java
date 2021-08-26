@@ -117,9 +117,9 @@ public class SqsFunctions extends Thread {
         System.out.println("DocA: " + getMessageCount(System.getenv("docA")));
         System.out.println("DocB: " + getMessageCount(System.getenv("docB")));
         System.out.println("DocB: " + getMessageCount(System.getenv("docC")));
-         obj.start();
-         obj1.start();
-         obj2.start();
+         //obj.start();
+         //obj1.start();
+         //obj2.start();
 
 
     }

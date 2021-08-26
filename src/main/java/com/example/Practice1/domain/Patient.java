@@ -149,9 +149,9 @@ public class Patient {
     public void setServices(Patient obj){
         if (obj.getDoctor_code() == 'A') {
             obj.setWaiting_number(SqsFunctions.getMessageCount(System.getenv("docA")) + 1);
-        } else if (obj.getDoctor_code() == 'B') {
+        } if (obj.getDoctor_code() == 'B') {
             obj.setWaiting_number(SqsFunctions.getMessageCount(System.getenv("docB")) + 1);
-        } else if (obj.getDoctor_code() == 'C') {
+        } if (obj.getDoctor_code() == 'C') {
             obj.setWaiting_number(SqsFunctions.getMessageCount(System.getenv("docC")) + 1);
         } else {
             obj.setWaiting_number(0);
@@ -159,9 +159,9 @@ public class Patient {
         obj.setEstimated_time(Patient.calculateEstimateTime(obj.getWaiting_number()));
         if (obj.getDoctor_code() == 'A') {
             obj.setId(SqsFunctions.sendMessage(System.getenv("docA"), obj.getPatient_name(), obj.getEmail(), obj.getWaiting_number()));
-        } else if (obj.getDoctor_code() == 'B') {
+        }if (obj.getDoctor_code() == 'B') {
             obj.setId(SqsFunctions.sendMessage(System.getenv("docB"), obj.getPatient_name(), obj.getEmail(), obj.getWaiting_number()));
-        } else if (obj.getDoctor_code() == 'C') {
+        }if (obj.getDoctor_code() == 'C') {
             obj.setId(SqsFunctions.sendMessage(System.getenv("docC"), obj.getPatient_name(), obj.getEmail(), obj.getWaiting_number()));
         } else {
             obj.setId("");
