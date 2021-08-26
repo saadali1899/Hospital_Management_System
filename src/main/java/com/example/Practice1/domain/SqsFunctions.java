@@ -90,7 +90,7 @@ public class SqsFunctions extends Thread {
                 System.out.println("Patient Checkup Time Has Been Started..");
                 System.out.println("Process: " + name);
                 Thread.sleep(answer*60*1000);
-                System.out.println(name + " checkup has been completed.. Total Time: " + answer + " mins :)");
+                System.out.println(obj.getName() + " checkup has been completed.. Total Time: " + answer + " mins :)");
                 deleteMessage();
             } else {
                 System.out.println(name + " Checking for new appointments...");
