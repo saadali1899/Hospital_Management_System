@@ -43,4 +43,11 @@ class SqsFunctionsTest {
     void main() {
         SqsFunctions.main(new String[] {"arg1", "arg2", "arg3"});
     }
+
+
+    @Test
+    void execution2() {
+        SqsFunctions obj1 = new SqsFunctions("abc", System.getenv("docB"));
+        obj1.execution();
+    }
 }
